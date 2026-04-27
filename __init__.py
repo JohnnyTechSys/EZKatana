@@ -17,13 +17,23 @@
 """
 from .runners.Runner import Runner
 from .runners.DockerRunner import DockerRunnerFrontend
+from .runners.LocalRunner import LocalRunnerFrontend
 import os
-from rich import print
+from rich import inspect, print
 import webbrowser as webbrowser
+import inspect
+import importlib
+from easyrun import run_simple, run_simple_stream, run_local, run_local_stream
 #Utils
 def get_paths_for_required_package_files():
     """Returns a list of paths for files that are required for the package to function. This is used for copying the package into the Docker container."""
     return os.path.join(os.path.dirname(os.path.abspath(__file__)))
+def get_importer_filename():
+    for frame_info in inspect.stack():
+        fname = frame_info.filename
+        if "_bootstrap" not in fname and fname != __file__:
+            return fname
+    return None
 def easteregg():
     print(r"""[bold magenta]          _____                    _____                    _____                    _____                   _______                   _____            _____                    _____                    _____                    _____                _____                    _____          
          /\    \                  /\    \                  /\    \                  /\    \                 /::\    \                 /\    \          /\    \                  /\    \                  /\    \                  /\    \              /\    \                  /\    \         
@@ -47,8 +57,11 @@ def easteregg():
         \::/    /                \::/    /                \::/    /                \::/    /                 ~~                      \::/    /        \::/    /                \::/____/                \::/    /                \::/    /                                     \::/    /        
          \/____/                  \/____/                  \/____/                  \/____/                                           \/____/          \/____/                                           \/____/                  \/____/                                       \/____/         
                                                                                                                                                                                                                                                                                       [/bold magenta]""")
+  
     webbrowser.open("https://patorjk.com/misc/scrollingtext/timewaster.php?text=JohnnyTech+Systems&autoscroll=ON&duration=20")
+importer_filename = get_importer_filename()
 #Regular __init__.py stuff is here now
 DebugRunner = Runner #Runner is just my internal naming for the base Runner class, which should not be used directly and is debug only.
 DockerRunner = DockerRunnerFrontend #DockerRunnerFrontend is just my internal naming because I do not want to confuse DockerRunner with the backend Runner class.
-__all__ = ["DockerRunner","easteregg","DebugRunner"]
+LocalRunner = LocalRunnerFrontend #LocalRunnerFrontend is the user-facing local runner
+__all__ = ["DockerRunner", "LocalRunner", "easteregg", "DebugRunner"]
