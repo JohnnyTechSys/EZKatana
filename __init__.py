@@ -19,7 +19,7 @@ from .runners.Runner import Runner
 from .runners.DockerRunner import DockerRunnerFrontend
 import os
 from rich import print
-import webbrowser
+import webbrowser as webbrowser
 #Utils
 def get_paths_for_required_package_files():
     """Returns a list of paths for files that are required for the package to function. This is used for copying the package into the Docker container."""
@@ -46,7 +46,8 @@ def easteregg():
        \:::\____\               \:::\____\               \::::/    /               /:::/    /               \::/____/               \:::\____\        /:::/    /              \::::/    /              \:::\____\                /:::/    /                                   \::::/    /       
         \::/    /                \::/    /                \::/    /                \::/    /                 ~~                      \::/    /        \::/    /                \::/____/                \::/    /                \::/    /                                     \::/    /        
          \/____/                  \/____/                  \/____/                  \/____/                                           \/____/          \/____/                                           \/____/                  \/____/                                       \/____/         
-    webbrowser.open("https://patorjk.com/misc/scrollingtext/timewaster.php?text=JohnnyTech+Systems&autoscroll=ON&duration=20")                                                                                                                                                                                                                                                                                  [/bold magenta]""")
+                                                                                                                                                                                                                                                                                      [/bold magenta]""")
+    webbrowser.open("https://patorjk.com/misc/scrollingtext/timewaster.php?text=JohnnyTech+Systems&autoscroll=ON&duration=20")
 #Regular __init__.py stuff is here now
 DebugRunner = Runner #Runner is just my internal naming for the base Runner class, which should not be used directly and is debug only.
 DockerRunner = DockerRunnerFrontend #DockerRunnerFrontend is just my internal naming because I do not want to confuse DockerRunner with the backend Runner class.
