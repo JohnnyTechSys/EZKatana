@@ -1,5 +1,6 @@
 
 class Runner():
+    """Base class for all runners. Runners are responsible for running the agent and any isolation this tool provides."""
     def __init__(self,model,**kw) -> None:
         """Base class for all runners. Runners are responsible for running the agent and any isolation this tool provides."""
         self.model = model

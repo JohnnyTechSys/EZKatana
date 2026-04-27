@@ -4,6 +4,7 @@ import os
 from uuid import uuid4
 from ..__init__ import get_paths_for_required_package_files
 class DockerRunnerBackend(Runner):
+    """DockerRunner is a runner that runs the agent in a Docker container. It uses the docker Python package to manage the container."""
     def __init__(self,model,override_container_name=None,**kw):
         """DockerRunner is a runner that runs the agent in a Docker container. It uses the docker Python package to manage the container."""
         super().__init__(model,**kw)
