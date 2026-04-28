@@ -63,6 +63,11 @@ class LocalRunner(Runner):
 class LocalRunnerFrontend(Runner):
     """User-facing local runner with simplified interface."""
     def __init__(self, executor_path=None, model=None, api_key=None, python_executable=None, **kw):
+        from smolagents.models import LiteLLMModel
+        # Convert model to LiteLLMModel before storing (for type consistency)
+        if isinstance(model, str) or model is None:
+            model_id = model or "openai/gpt-4o-mini"
+            model = LiteLLMModel(model_id=model_id, api_key=api_key)
         super().__init__(model, **kw)
         self.backend = LocalRunner(
             executor_path=executor_path, model=model, api_key=api_key,

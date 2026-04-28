@@ -5,7 +5,6 @@ from uuid import uuid4
 try:
     from ..__init__ import get_paths_for_required_package_files
 except ImportError:
-    # Fallback for direct file execution - compute manually
     import os
     def get_paths_for_required_package_files():
         return os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
@@ -85,6 +84,11 @@ class DockerRunnerBackend(Runner):
 
 class DockerRunnerFrontend(Runner):
     def __init__(self, executor_path=None, override_container_name=None, model=None, api_key=None, security_level="standard", **kw):
+        from smolagents.models import LiteLLMModel
+        # Convert model to LiteLLMModel before storing (for type consistency)
+        if isinstance(model, str) or model is None:
+            model_id = model or "openai/gpt-4o-mini"
+            model = LiteLLMModel(model_id=model_id, api_key=api_key)
         super().__init__(model, **kw)
         self.backend = DockerRunnerBackend(
             executor_path=executor_path, override_container_name=override_container_name,
